@@ -1,6 +1,9 @@
+using DessertsApp.Commands.ColorCommands.CreateColor;
 using DessertsApp.Data;
 using DessertsApp.Models;
 using DessertsApp.Repositories;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -32,6 +35,10 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 //MediatR config
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+
+//Validators config 
+builder.Services.AddValidatorsFromAssemblyContaining<CreateColorValidator>();
+builder.Services.AddFluentValidationAutoValidation();
 
 //DI
 //Repositories
