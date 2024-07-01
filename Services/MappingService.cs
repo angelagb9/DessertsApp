@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DessertsApp.Commands.ColorCommands.CreateColor;
 using DessertsApp.Models;
+using DessertsApp.Queries.ColorQueries.GetColorById;
 
 namespace DessertsApp.Services
 {
@@ -12,6 +13,7 @@ namespace DessertsApp.Services
             CreateMap<CreateColorCommand, Color>()
                 .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => true));
             CreateMap<Color, CreateColorResponse>();
+            CreateMap<Color, GetColorByIdResponse>();
         
         }
     }

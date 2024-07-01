@@ -1,4 +1,6 @@
 ﻿using DessertsApp.Commands.ColorCommands.CreateColor;
+using DessertsApp.Exceptions;
+using DessertsApp.Queries.ColorQueries.GetColorById;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +29,25 @@ namespace DessertsApp.Controllers
             catch (ValidationException ex)
             {
                 return BadRequest(ex.Data);
+            }
+            catch (ApplicationException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            try
+            {
+                var query = new GetColorByIdQuery{ Id = id };
+                var response = await _mediator.Send(query);
+                return Ok(response);
+            }
+            catch(NotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (ApplicationException ex)
             {
