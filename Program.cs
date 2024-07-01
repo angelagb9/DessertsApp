@@ -1,5 +1,6 @@
 using DessertsApp.Data;
 using DessertsApp.Models;
+using DessertsApp.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -31,6 +32,10 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 //MediatR config
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+
+//DI
+//Repositories
+builder.Services.AddScoped<ColorRepository>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
