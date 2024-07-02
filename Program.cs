@@ -1,4 +1,5 @@
 using DessertsApp.Commands.ColorCommands.CreateColor;
+using DessertsApp.Commands.ColorCommands.UpdateColor;
 using DessertsApp.Data;
 using DessertsApp.Models;
 using DessertsApp.Repositories;
@@ -38,6 +39,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.
 
 //Validators config 
 builder.Services.AddValidatorsFromAssemblyContaining<CreateColorValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateColorValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 
 //DI

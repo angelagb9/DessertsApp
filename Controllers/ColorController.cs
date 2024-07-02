@@ -1,4 +1,5 @@
 ﻿using DessertsApp.Commands.ColorCommands.CreateColor;
+using DessertsApp.Commands.ColorCommands.UpdateColor;
 using DessertsApp.Exceptions;
 using DessertsApp.Queries.ColorQueries.GetColorById;
 using MediatR;
@@ -46,6 +47,29 @@ namespace DessertsApp.Controllers
                 return Ok(response);
             }
             catch(NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ApplicationException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateColor(int id, [FromBody] UpdateColorCommand command)
+        {
+            try
+            {
+                command.Id = id;
+                var response = await _mediator.Send(command);
+                return Ok(response);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Data);
+            }
+            catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
