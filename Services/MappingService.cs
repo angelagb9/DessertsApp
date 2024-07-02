@@ -5,6 +5,7 @@ using DessertsApp.Commands.ColorCommands.UpdateColor;
 using DessertsApp.Commands.ColorCommands.DisableColor;
 using DessertsApp.Models;
 using DessertsApp.Queries.ColorQueries.GetColorById;
+using DessertsApp.Queries.ColorQueries.GetAllColors;
 
 namespace DessertsApp.Services
 {
@@ -20,6 +21,7 @@ namespace DessertsApp.Services
             CreateMap<Color, UpdateColorResponse>();
             CreateMap<Color, ActivateColorResponse>();
             CreateMap<Color, DisableColorResponse>();
+            CreateMap<Color, GetAllColorsResponse>();
 
         }
     }

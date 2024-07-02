@@ -3,6 +3,7 @@ using DessertsApp.Commands.ColorCommands.CreateColor;
 using DessertsApp.Commands.ColorCommands.DisableColor;
 using DessertsApp.Commands.ColorCommands.UpdateColor;
 using DessertsApp.Exceptions;
+using DessertsApp.Queries.ColorQueries.GetAllColors;
 using DessertsApp.Queries.ColorQueries.GetColorById;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -119,6 +120,21 @@ namespace DessertsApp.Controllers
             catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+            catch (ApplicationException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var query = new GetAllColorsQuery();
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
             catch (ApplicationException ex)
             {
