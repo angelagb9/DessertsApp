@@ -104,7 +104,7 @@ namespace DessertsApp.Controllers
             }
         }
         [HttpPut("{id}/disable")]
-        public async Task<IActionResult> DeactiveColor(int id)
+        public async Task<IActionResult> DisableColor(int id)
         {
             try
             {
