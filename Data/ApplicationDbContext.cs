@@ -13,5 +13,7 @@ namespace DessertsApp.Data
         {
 
         }
+
+        public DbSet<Color> Colors { get; set; }
     }
 }
