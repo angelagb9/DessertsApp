@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using DessertsApp.Commands.ColorCommands.ActivateColor;
 using DessertsApp.Commands.ColorCommands.CreateColor;
 using DessertsApp.Commands.ColorCommands.UpdateColor;
+using DessertsApp.Commands.ColorCommands.DisableColor;
 using DessertsApp.Models;
 using DessertsApp.Queries.ColorQueries.GetColorById;
 
@@ -16,7 +18,9 @@ namespace DessertsApp.Services
             CreateMap<Color, CreateColorResponse>();
             CreateMap<Color, GetColorByIdResponse>();
             CreateMap<Color, UpdateColorResponse>();
-        
+            CreateMap<Color, ActivateColorResponse>();
+            CreateMap<Color, DisableColorResponse>();
+
         }
     }
 }
