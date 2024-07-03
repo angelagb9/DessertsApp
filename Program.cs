@@ -1,13 +1,22 @@
+using DessertsApp.Commands.ColorCommands.CreateColor;
+using DessertsApp.Commands.ColorCommands.UpdateColor;
 using DessertsApp.Data;
 using DessertsApp.Models;
+using DessertsApp.Repositories;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+//Database config
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySQL(connectionString));
@@ -21,6 +30,21 @@ builder.Services.AddIdentityServer()
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
+
+//Automapper config
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+//MediatR config
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+
+//Validators config 
+builder.Services.AddValidatorsFromAssemblyContaining<CreateColorValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateColorValidator>();
+builder.Services.AddFluentValidationAutoValidation();
+
+//DI
+//Repositories
+builder.Services.AddScoped<ColorRepository>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
